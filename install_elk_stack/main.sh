@@ -8,7 +8,8 @@ show_menu() {
   echo "========================================="
   echo "1. Install Prerequisites"
   echo "2. Install ELK Stack"
-  echo "3. Exit"
+  echo "3. Uninstall ELK"
+  echo "4. Exit"
   echo "========================================="
 }
 
@@ -31,6 +32,11 @@ while true; do
       echo "ELK stack installation complete."
       ;;
     3)
+      echo "Uninstalling ELK"
+      bash uninstall_elk.sh
+      echo "ELK uninstalled successfully"
+      ;;
+    4)
       echo "Exiting the script. Goodbye!"
       exit 0
       ;;
@@ -40,3 +46,4 @@ while true; do
   esac
 
 done
+
