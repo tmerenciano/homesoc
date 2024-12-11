@@ -8,8 +8,9 @@ show_menu() {
   echo "========================================="
   echo "1. Install Prerequisites"
   echo "2. Install ELK Stack"
-  echo "3. Uninstall ELK"
-  echo "4. Exit"
+  echo "3. Uninstall ELK Stack"
+  echo "4. Debug ELK Stack"
+  echo "5. Exit"
   echo "========================================="
 }
 
@@ -18,7 +19,7 @@ while true; do
   show_menu
 
   # Read user input
-  read -p "Enter your choice [1-3]: " choice
+  read -p "Enter your choice [1-5]: " choice
 
   case $choice in
     1)
@@ -35,6 +36,9 @@ while true; do
       echo "Uninstalling ELK"
       bash uninstall_elk.sh
       echo "ELK uninstalled successfully"
+      ;;
+    5)
+      bash debug.sh
       ;;
     4)
       echo "Exiting the script. Goodbye!"
