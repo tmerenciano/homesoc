@@ -46,6 +46,8 @@ services:
     ports:
       - "5601:5601"
     restart: always
+    depends_on:
+      - elasticsearch
     networks:
       - elk
 
