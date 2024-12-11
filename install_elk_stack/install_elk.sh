@@ -9,7 +9,7 @@ set -e  # Exit immediately if a command exits with a non-zero status.
 cat <<EOL > docker-compose.yml
 services:
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.16.1
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.10.2
     container_name: elasticsearch
     environment:
       - discovery.type=single-node
@@ -22,27 +22,30 @@ services:
       - es_data:/usr/share/elasticsearch/data
     ports:
       - "9200:9200"
+    restart: always
     networks:
       - elk
 
   logstash:
-    image: docker.elastic.co/logstash/logstash:8.16.1
+    image: docker.elastic.co/logstash/logstash:8.10.2
     container_name: logstash
     ports:
       - "5044:5044"
       - "9600:9600"
+    restart: always
     networks:
       - elk
     volumes:
       - ./logstash/config:/usr/share/logstash/config
 
   kibana:
-    image: docker.elastic.co/kibana/kibana:8.16.1
+    image: docker.elastic.co/kibana/kibana:8.10.2
     container_name: kibana
     environment:
       - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
     ports:
       - "5601:5601"
+    restart: always
     networks:
       - elk
 
@@ -78,7 +81,7 @@ EOL
 echo "Starting the ELK stack using Docker Compose..."
 
 # Start the ELK stack using Docker Compose
-docker compose up -d
+docker-compose up -d
 
 # Wait for Elasticsearch to start and generate the enrollment token
 echo "Waiting for Elasticsearch to generate the enrollment token..."
@@ -90,8 +93,17 @@ enrollment_token=$(docker exec elasticsearch /usr/share/elasticsearch/bin/elasti
 echo "Saving the enrollment token to enrollment_token.txt..."
 echo "$enrollment_token" > enrollment_token.txt
 
+# Get Kibana verification code
+echo "Fetching the Kibana verification code..."
+kibana_verification_code=$(docker exec kibana /usr/share/kibana/bin/kibana-verification-code)
+
+# Save the verification code to a file
+echo "Saving the Kibana verification code to kibana_verification_code.txt..."
+echo "$kibana_verification_code" > kibana_verification_code.txt
+
 # Provide instructions for the user
 echo "The ELK stack is starting. Access Kibana at http://localhost:5601."
 echo "Ensure Elasticsearch is reachable at http://localhost:9200."
 echo "Logstash is ready to accept inputs on port 5044."
 echo "The Kibana enrollment token has been saved to enrollment_token.txt."
+echo "The Kibana verification code has been saved to kibana_verification_code.txt."
