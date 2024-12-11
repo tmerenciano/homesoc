@@ -92,6 +92,7 @@ enrollment_token=$(docker exec elasticsearch /usr/share/elasticsearch/bin/elasti
 # Save the enrollment token to a file
 echo "Saving the enrollment token to enrollment_token.txt..."
 echo "$enrollment_token" > enrollment_token.txt
+cat enrollment_token.txt
 
 # Get Kibana verification code
 echo "Fetching the Kibana verification code..."
@@ -100,6 +101,7 @@ kibana_verification_code=$(docker exec kibana /usr/share/kibana/bin/kibana-verif
 # Save the verification code to a file
 echo "Saving the Kibana verification code to kibana_verification_code.txt..."
 echo "$kibana_verification_code" > kibana_verification_code.txt
+cat kibana_verification_code.txt
 
 # Provide instructions for the user
 echo "The ELK stack is starting. Access Kibana at http://localhost:5601."
