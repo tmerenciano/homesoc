@@ -2,6 +2,4 @@ Donnez les permissions d'exécution à chaque script :
 
 chmod +x file_name
 
-1- ./install_prerequitises.sh
-2- ./install_elk.sh
-3- (optional) ./fix_problem.sh
+Execute main.sh
