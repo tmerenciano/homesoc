@@ -9,7 +9,7 @@ set -e  # Exit immediately if a command exits with a non-zero status.
 cat <<EOL > docker-compose.yml
 services:
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.10.2
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.16.1
     container_name: elasticsearch
     environment:
       - discovery.type=single-node
@@ -26,7 +26,7 @@ services:
       - elk
 
   logstash:
-    image: docker.elastic.co/logstash/logstash:8.10.2
+    image: docker.elastic.co/logstash/logstash:8.16.1
     container_name: logstash
     ports:
       - "5044:5044"
@@ -37,7 +37,7 @@ services:
       - ./logstash/config:/usr/share/logstash/config
 
   kibana:
-    image: docker.elastic.co/kibana/kibana:8.10.2
+    image: docker.elastic.co/kibana/kibana:8.16.1
     container_name: kibana
     environment:
       - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
@@ -78,7 +78,7 @@ EOL
 echo "Starting the ELK stack using Docker Compose..."
 
 # Start the ELK stack using Docker Compose
-docker-compose up -d
+docker compose up -d
 
 # Wait for Elasticsearch to start and generate the enrollment token
 echo "Waiting for Elasticsearch to generate the enrollment token..."
