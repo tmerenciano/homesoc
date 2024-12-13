@@ -1,5 +1,9 @@
 # Graylog
 
 ## Installation
-- Generate graylog secret and graylog token and setup in .env file.
+### Generate GRAYLOG_PASSWORD_SECRET and GRAYLOG_ROOT_PASSWORD_SHA2 and setup in .env file :
+-  GRAYLOG_PASSWORD_SECRET : ```pwgen -N 1 -s 96```
+-  GRAYLOG_ROOT_PASSWORD_SHA2 : ```echo -n YOURPASSWORD | shasum -a 256```
+
+### Start the stack
 - Run command : ```docker compose up -d```
