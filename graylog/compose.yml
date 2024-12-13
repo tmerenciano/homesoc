@@ -6,7 +6,7 @@ services:
     restart: "on-failure"
 
   opensearch:
-    image: "opensearchproject/opensearch:2.4.0"
+    image: "opensearchproject/opensearch:2.12.0"
     environment:
       - "OPENSEARCH_JAVA_OPTS=-Xms1g -Xmx4g"
       - "bootstrap.memory_lock=true"
@@ -14,6 +14,7 @@ services:
       - "action.auto_create_index=false"
       - "plugins.security.ssl.http.enabled=false"
       - "plugins.security.disabled=true"
+      - "OPENSEARCH_INITIAL_ADMIN_PASSWORD=Pokemon12345678!"
     ulimits:
       memlock:
         hard: -1
